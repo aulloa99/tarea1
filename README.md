@@ -1,31 +1,35 @@
-
 using System;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Bienvenido al programa de cálculo de precios");
-
-        double precioTotal = 0;
+        double totalConDescuento = 0;
+        double totalSinDescuento = 0;
 
         for (int i = 1; i <= 3; i++)
         {
-            Console.Write($"Ingrese el precio del producto {i} en céntimos: ");
-            double precioProducto = Convert.ToDouble(Console.ReadLine());
-            precioTotal += precioProducto;
+            Console.WriteLine($"Ingrese el precio del producto {i}:");
+            double precio = double.Parse(Console.ReadLine());
+
+            if (precio > 100)
+            {
+                totalConDescuento += AplicarDescuento(precio);
+            }
+            else
+            {
+                totalSinDescuento += precio;
+            }
         }
 
-        double descuento = precioTotal > 500 ? precioTotal * 0.1 : 0;
-        double precioFinal = precioTotal - descuento;
+        Console.WriteLine($"Total con descuento: {totalConDescuento}");
+        Console.WriteLine($"Total sin descuento: {totalSinDescuento}");
+    }
 
-        Console.WriteLine($"El total de los productos es: {precioTotal} céntimos");
-
-        if (descuento > 0)
-        {
-            Console.WriteLine($"Se aplicó un descuento del 10%: {descuento} céntimos");
-        }
-
-        Console.WriteLine($"El precio final a pagar es: {precioFinal} céntimos");
+    static double AplicarDescuento(double precio)
+    {
+        double descuento = precio * 0.15;
+        double precioConDescuento = precio - descuento;
+        return precioConDescuento;
     }
 }
